@@ -1,0 +1,49 @@
+dataset:
+  configs:
+    ce_add_re: false # whether to add re to ce (as in NSM)
+    cv_div_d: true # whether to divide input cv by depth
+    penumbra_clamp: 50 # maximum penumbra width
+    penumbra_width_choice: w_sqrt # penumbra width choice
+    temporal_group_num: 2 # 2 datasamples form a perturbed group
+    use_msm: true # wheter to use msm enhancement
+    use_pcf: false # use pcf instead of msm, require use_msm=True in the first place
+  scenes_train: # list of training scenes
+  - staircase
+  scenes_val: # list of validation scenes
+  - staircase
+  train: data/train
+  train_workers: 8
+  val: data/validation
+  val_use_temporal: true # validation considers temporal metrics
+  val_workers: 8
+filter:
+  dilation: 3
+  filter_size: 5
+include_de_ds: true # include 2 depths in input
+include_sm: true # include shadowmap in input
+loss:
+  configs:
+    l1_weight: 1.0
+    vgg_weight: 0.1
+  type: combine
+model:
+  down: maxpool
+  layer_num: 4
+  less_channel: false
+  light_conv: false
+  skip: add
+  up: transconv
+name: run_msm_vgg0.1_tl1vgg1.0_proj_wsqrt_filter5_dilation3_layer4
+pixel_shuffle: true # use a lightweight Unet called PixelShuffleUnet
+temporal_loss:
+  proj: true # motion vector alignment
+  type: l1vgg
+temporal_weight: 1.0 # temporal loss weight
+training:
+  learning_rate: 0.001
+  max_step: 100000000000
+  train_batch_accum: 4 # step() every 4 steps
+  train_batch_size: 2
+val:
+  val_batch_size: 2
+  val_frequency: 5000
