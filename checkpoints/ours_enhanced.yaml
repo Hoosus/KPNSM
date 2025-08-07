@@ -1,0 +1,57 @@
+dataset:
+  configs:
+    ce_add_re: false
+    cv_div_d: true
+    penumbra_clamp: 50
+    penumbra_width_choice: w_sqrt
+    temporal_group_num: 2
+    use_msm: true
+    use_pcf: false
+  scenes_train:
+  - classroom
+  - kitchen
+  - living-room
+  - staircase
+  - living-room-2
+  scenes_val:
+  - classroom
+  - kitchen
+  - living-room
+  - staircase
+  - living-room-2
+  train: data/train
+  train_workers: 8
+  val: data/validation
+  val_use_temporal: true
+  val_workers: 8
+filter:
+  dilation: 3
+  filter_size: 5
+include_de_ds: true
+include_sm: true
+loss:
+  configs:
+    l1_weight: 1.0
+    vgg_weight: 0.1
+  type: combine
+model:
+  down: maxpool
+  layer_num: 4
+  less_channel: false
+  light_conv: false
+  skip: add
+  up: transconv
+name: run_msm_vgg0.1_tl1vgg1.0_proj_wsqrt_filter5_dilation3_layer4
+pixel_shuffle: true
+temporal_loss:
+  proj: true
+  type: l1vgg
+temporal_weight: 1.0
+training:
+  learning_rate: 0.001
+  max_step: 100000000000
+  train_batch_accum: 4
+  train_batch_size: 2
+val:
+  val_batch_size: 2
+  val_frequency: 5000

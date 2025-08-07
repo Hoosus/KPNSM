@@ -9,7 +9,11 @@ python train.py [--config config/default.yaml]
 ```
 By default it use config/default.yaml.
 
-You would need to create your own dataset for training. Note that in current dataset format, 2 consecutive data samples formed a perturbed pair (1+2, 3+4,...).
+## Dataset
+
+You would need to create your own dataset for training. You can refer to data/ for examples of our data format.
+
+Note that in current dataset format, 2 consecutive data samples formed a perturbed pair (1+2, 3+4,...).
 
 ## Testing
 test_scene.py by default uses config/evaluate.yaml.
